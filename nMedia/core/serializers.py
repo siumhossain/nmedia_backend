@@ -30,6 +30,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class BannerSerializer(serializers.ModelSerializer):
     createdAt = serializers.DateTimeField(format="%d-%m-%Y : %I:%M %p",read_only=True)
+    # image = serializers.SerializerMethodField()
     class Meta:
         model = Banner
         fields = ['id','title','description','image','createdAt',]
+    # def get_image(self, banner):
+    #         request = self.context.get('request')
+    #         image = banner.image.url
+    #         return request.build_absolute_uri(image)
+
+
+
+            

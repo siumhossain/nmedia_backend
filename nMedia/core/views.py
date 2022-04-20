@@ -124,12 +124,11 @@ def createBanner(request):
 @api_view(['GET']) 
 @permission_classes([AllowAny])
 def getBanner(request):
-    try:
+    
         obj = Banner.objects.all()
         serializer = BannerSerializer(obj,many=True)
         if serializer:
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    except obj.DoesNotExist:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+   

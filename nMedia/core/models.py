@@ -55,7 +55,7 @@ class News(models.Model):
 class Banner(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to="bannerImage",null=True,blank=True)
+    image = models.ImageField(upload_to="bannerImage")
     createdAt = models.DateTimeField(auto_now_add=True,null=True,blank=True)
 
     class Meta:
