@@ -101,12 +101,11 @@ def getAllCategory(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def getAllSubCategory(request):
-    try:
+    
         obj = SubCategory.objects.all()
         serializer = SubCategorySerializer(obj,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
-    except obj.DoesNotExist:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    
 
 
 

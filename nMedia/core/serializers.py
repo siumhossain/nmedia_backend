@@ -18,9 +18,20 @@ class CreateNewsSerializer(serializers.ModelSerializer):
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
+    newsCount = serializers.SerializerMethodField()
+    news = serializers.SerializerMethodField()
     class Meta:
         model = SubCategory
-        fields = "__all__"
+        fields = ["id","title","description","created","newsCount","news"]
+
+    def get_newsCount(self, obj):
+        count = News.objects.filter(subCategory__id = obj.id).count()
+        return count
+    def get_news(self,obj):
+        news = News.objects.filter(subCategory__id = obj.id)
+        serializer = NewsSerializer(news,many=True)
+        return serializer.data
+        
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

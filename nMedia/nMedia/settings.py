@@ -160,6 +160,9 @@ CORS_ORIGIN_WHITELIST = (
     
 
 )
+
+CORS_ALLOW_ALL_ORIGINS: True
+
 AUTH_USER_MODEL = 'core.NewUser'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
