@@ -8,7 +8,7 @@ class NewsSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(format="%d-%m-%Y : %I:%M %p",read_only=True)
     class Meta:
         model = News
-        fields = ["id","subCategory","title","details","thumbnail","created","createdBy"]
+        fields = ["id","subCategory","title","details","thumbnail","shortDescription","created","createdBy"]
 
 class CreateNewsSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(format="%d-%m-%Y : %I:%M %p",read_only=True)

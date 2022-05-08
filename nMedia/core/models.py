@@ -42,6 +42,7 @@ class News(models.Model):
     title = models.CharField(max_length=300,unique=True)
     details = models.TextField()
     thumbnail = models.ImageField(upload_to="newsThumbnail/",null=True,blank=True)
+    shortDescription = models.TextField(null=True,blank=True)
     created = models.DateTimeField(auto_now_add = True)
     embeddedLink = models.TextField(null=True,blank=True)
         #  there goes user 
