@@ -31,6 +31,9 @@ urlpatterns = [
     #get all sub category
     path('getAllSubCategory/',views.getAllSubCategory,name="get all subcategory"),
 
+    #get single sub category
+    path('getSubCategory/<int:id>/',views.getSingleSubCategory,name="get single subcategory"),
+
 
     # create banner 
     path('createBanner/',views.createBanner,name="create banner for front page"),

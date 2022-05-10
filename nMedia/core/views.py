@@ -106,7 +106,16 @@ def getAllSubCategory(request):
         serializer = SubCategorySerializer(obj,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
-
+@swagger_auto_schema(tags=['Get a single subcategory'],methods=['get'])
+@api_view(['GET'])
+def getSingleSubCategory(request,id):
+    try:
+        obj = SubCategory.objects.filter(category__id = id)
+    except SubCategory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = SubCategorySerializer(obj,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

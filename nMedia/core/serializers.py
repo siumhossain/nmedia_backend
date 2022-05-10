@@ -22,7 +22,7 @@ class SubCategorySerializer(serializers.ModelSerializer):
     news = serializers.SerializerMethodField()
     class Meta:
         model = SubCategory
-        fields = ["id","title","description","created","newsCount","news"]
+        fields = ["id","title","description","created","newsCount","news","category"]
 
     def get_newsCount(self, obj):
         count = News.objects.filter(subCategory__id = obj.id).count()
@@ -34,9 +34,16 @@ class SubCategorySerializer(serializers.ModelSerializer):
         
 
 class CategorySerializer(serializers.ModelSerializer):
+    subCategoryCount = serializers.SerializerMethodField()
     class Meta:
         model = Category
-        fields = "__all__"
+        fields = ["id","title","description","created","subCategoryCount"]
+
+    def get_subCategoryCount(self,obj):
+        count = SubCategory.objects.filter(category__id = obj.id).count()
+        return count
+
+
 
 
 class BannerSerializer(serializers.ModelSerializer):
