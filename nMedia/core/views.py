@@ -13,6 +13,13 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny,IsAdminUser
+from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
+from rest_framework import generics
+
+
+
+
 @swagger_auto_schema(tags=['welcome'],methods=['get'],)
 
 @api_view(['GET'])
@@ -190,3 +197,11 @@ def topStories(request,number):
     except obj.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+# all news with pagination 
+class NewsPagination(PageNumberPagination):
+    page_size = 10
+
+class NewsView(generics.ListAPIView):
+    pagination_class = NewsPagination
+    serializer_class = NewsSerializer
+    queryset = News.objects.all()

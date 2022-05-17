@@ -1,5 +1,6 @@
 from django.urls import path,include
 from . import views
+
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -15,7 +16,7 @@ urlpatterns = [
 
 
     #get all news with pagination 
-    
+    path('getNewsByPagination/',views.NewsView.as_view(),name   ="for get all the news"),
 
     #get single news 
     path('getNews/<str:title>/',views.getSingleNews,name="get single news"),
