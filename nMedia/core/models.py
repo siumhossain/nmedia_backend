@@ -1,11 +1,11 @@
+from distutils.command.upload import upload
 from email.policy import default
-from unicodedata import category
-from venv import create
+from pyexpat import model
+import re
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
-
-
 
 class NewUser(AbstractUser):
     username  = models.CharField(max_length=250,unique=True)
@@ -50,6 +50,15 @@ class News(models.Model):
         #  there goes user     
     class Meta:
         ordering = ["-created"]
+    
+
+    def save(self,*args,**kwargs):
+        link = self.embeddedLink
+        if link:
+            pattern = r"<iframe[^>]*src=[\"|']([^'\"]+)[\"|'][^>]*>"
+            newLink = re.findall(pattern,link)[0]
+            self.embeddedLink = newLink
+        super().save(*args,**kwargs)
 
 
 
@@ -61,6 +70,7 @@ class Banner(models.Model):
 
     class Meta:
         ordering = ["-createdAt"]
+
 
 
 

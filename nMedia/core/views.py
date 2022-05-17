@@ -1,5 +1,6 @@
 from cgitb import reset
 from crypt import methods
+from urllib import response
 from django.shortcuts import render
 from django.http import JsonResponse
 
@@ -117,6 +118,21 @@ def getSingleSubCategory(request,id):
         serializer = SubCategorySerializer(obj,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
 
+@swagger_auto_schema(tags=['Get a single subcategory by title'],methods=['get'])
+@api_view(['GET'])
+def getSingleSubCategoryByTitle(request,title):
+    try:
+        obj = SubCategory.objects.get(title = title)
+    except SubCategory.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = SubCategorySerializer(obj)
+        if serializer:
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -140,3 +156,37 @@ def getBanner(request):
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
    
+
+
+    
+@swagger_auto_schema(tags=['get content by id'],methods=['get'])
+
+@api_view(['GET'])
+
+def getSingleContent(request,id):
+    
+    try:
+        obj = News.objects.get(id = id)
+        
+    except News.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'GET':
+        serializer = NewsSerializer(obj)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+
+@swagger_auto_schema(tags=['top stories'],methods=['get'])
+@api_view(['GET'])
+def topStories(request,number):
+    try:
+        obj = News.objects.all()[:number]
+        serializer = NewsSerializer(obj,many=True)
+
+        if not serializer.data:
+            return Response("there is no data at this moment",status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.data,status=status.HTTP_200_OK)
+    except obj.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
