@@ -162,6 +162,18 @@ def getBanner(request):
             return Response(serializer.data,status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET']) 
+@permission_classes([AllowAny])
+def getBannerByName(request,title):
+    
+        obj = Banner.objects.get(title = title)
+        serializer = BannerSerializer(obj)
+        if serializer:
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
    
 
 

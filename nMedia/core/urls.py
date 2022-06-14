@@ -49,6 +49,9 @@ urlpatterns = [
     # get all banner
     path('getBanner/',views.getBanner,name="get all banner data"),
 
+    # get banner by title
+    path('getBanner/<str:title>/',views.getBannerByName,name="get banner by name"),
+
 
     #top stories
     path('topStories/<int:number>/',views.topStories,name="top stories"),
